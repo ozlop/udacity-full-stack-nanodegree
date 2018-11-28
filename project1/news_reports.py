@@ -1,5 +1,5 @@
+#!/usr/bin/env python3
 import datetime, psycopg2
-from pprint import pprint
 
 
 def run_query(query):
