@@ -31,7 +31,6 @@ def generate_report(report, data):
             print('{} - {} views'.format(field1, field2))
 
 
-
 if __name__ == '__main__':
     reports = ['top_articles', 'top_authors', 'top_failures']
 

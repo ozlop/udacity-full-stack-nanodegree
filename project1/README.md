@@ -44,9 +44,9 @@ Clone the Relational Databases and Full Stack Fundamentals courses virtual
 machine code from official Udacity github repository
 [here](https://github.com/udacity/fullstack-nanodegree-vm).
 
-The remaining steps will occur within the directory structure of the files held
+*The remaining steps will occur within the directory structure of the files held
 in the repository. Any references to a `/` or `root` directory indicate the
-base directory of this folder structure
+base directory of this folder structure*
 
 #### Spin it Up
 From the `root` directory of the Fullstack VM, change into the `vagrant` directory containing the VM configuration file and run the Vagrant command `up` to initiate the virtual machine.
@@ -56,7 +56,7 @@ vagrant up
 ```
 <br>
 
-Open a connection with the VM once it fully configured and booted using
+Open a connection with the VM once it is fully configured and booted using
 Vagrant's `ssh` command.
 ```
 vagrant ssh
@@ -94,7 +94,7 @@ and VM environment; any files placed in the `vagrant` on the Host machine will
 be accessible within the VM in the `/vagrant` directory.
 
 Log into the VM and change into the `/vagrant` directory to load the database
-information into the existing PostgresQL instance (this was installed on the VM
+information into the existing PostgreSQL instance (this was installed on the VM
 during initialization)
 ```
 # Host Shell
@@ -107,3 +107,47 @@ cd /vagrant
 psql -d news -f newsdata.sql
 ```
 <br>
+
+Verify the news website database is loaded into the server instance by accessing
+PostgreSQL using the CLI tool `psql`.
+```
+psql -d news
+```
+From within the `psql` command prompt run `\dt` and verify all the necessary
+tables were loaded into the news database.
+```
+\dt
+
+       List of relations
+Schema |   Name   | Type  |  Owner
+--------+----------+-------+---------
+public | articles | table | vagrant
+public | authors  | table | vagrant
+public | log      | table | vagrant
+(3 rows)
+
+```
+<br>
+<br>
+
+
+## How to Run
+Download the files from this repository and move them to your Host machine's
+`/vagrant` directory, they may now be run from the VM.
+```
+# Host Shell
+cd /vagrant
+vagrant up
+ssh vagrant
+
+# Vagrant Shell
+cd /vagrant
+python news_reports.py
+```
+
+You will be presented with the following statistics from the news website:
+1. The top three articles with the most views
+2. The top three authors with the most views
+3. Any days where requests to the website resulted in an error rate above 1%
+
+Enjoy!
