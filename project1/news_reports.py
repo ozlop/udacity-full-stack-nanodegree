@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import datetime, psycopg2
+import psycopg2
 
 
 def run_query(query):
@@ -16,7 +16,7 @@ def run_query(query):
 def generate_report(report, data):
     for d in data:
         if report == 'top_failures':
-            field1 = str(d[0].strftime("%B %d, %Y"))
+            field1 = str(d[0])
             field2 = str(d[1] * 100)
             print('{0!s} - {1:.4}% errors'.format(field1, field2))
             return

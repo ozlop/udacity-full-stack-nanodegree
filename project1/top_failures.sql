@@ -1,4 +1,4 @@
-SELECT day
+SELECT TO_CHAR(day, 'Mon DD, YYYY')
     , count(errors) / (count(*) * 1.0) AS failure
 FROM (
     SELECT date(time) AS day
