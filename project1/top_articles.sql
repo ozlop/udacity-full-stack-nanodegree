@@ -1,6 +1,6 @@
 WITH visited
 AS (
-    SELECT replace(path, '/article/', '') AS path
+    SELECT path
         , count(path) AS total
     FROM log
     WHERE path LIKE '/article/%'
@@ -10,6 +10,6 @@ AS (
 SELECT articles.title, total
 FROM visited
 JOIN articles
-    ON visited.path = articles.slug
+    ON visited.path = CONCAT('/article/', articles.slug)
 ORDER BY total DESC
 LIMIT 3;
