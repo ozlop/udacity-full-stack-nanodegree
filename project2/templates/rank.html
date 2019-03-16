@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+  {% set rank_title = rank %}
+<section class="py-3">
+  <div class="container text-center">
+    <h1>{{ rank_title|title }} List</h1>
+  </div>
+</section>
+
+<section class="py-3">
+  <div class="container text-center">
+  {% for rank_row in rank_content | batch(3) %}
+    <div class="row">
+    {% for rank in rank_row %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          {% if rank.image %}
+          <img class="card-img-top" src="{{ rank.image }}" alt=""/>
+          {% else %}
+          <img class="card-img-top" src="http://bootstrapshuffle.com/placeholder/pictures/bg_4-3.svg?primary=3B3737" alt=""/>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ rank.name }}</h5>
+            <a href="{{ url_for('tax', tax_type=rank_title, tax_id=rank.rank_id) }}">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

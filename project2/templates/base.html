@@ -1,0 +1,77 @@
+<head>
+{% block head %}
+  <title>Fungus Among Us</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Fungus Among Us. Answer the call of the wild mushroom.">
+  <meta name="author" content="Oswaldo Lopez">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+  <script src="{{ url_for('static', filename='js/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/popper/popper.min.js') }}"></script>
+{% block scripts %}
+{% endblock %}
+{% endblock %}
+</head>
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light"><a class="navbar-brand d-lg-none" href="#"><img src="{{ url_for('static', filename='img/logo.jpg')}}" alt="Fungus Among Us" width="150"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigations-02"><span class="navbar-toggler-icon"></span></button>
+  <div class="collapse navbar-collapse justify-content-md-center" id="navigations-02">
+    <div class="row w-100">
+      <div class="col-4 pl-lg-0">
+        <ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="{{ url_for('home') }}">Home<span class="sr-only">(current)</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('sightings') }}">Sightings</a></li>
+        </ul></div>
+      <div class="col-4 navbar-nav text-center pr-0 d-none d-lg-block"><a class="navbar-brand mr-0" href="#"><img src="{{ url_for('static', filename='img/logo.jpg')}}" alt="Fungus Among Us" width="150"></a></div>
+      <div class="col-4 pr-lg-0">
+        <ul class="navbar-nav justify-content-end">
+          <li clas  s="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Taxanomic Ranks</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{{ url_for('rank', rank='phylum' )}}">Phylum</a>
+              <a class="dropdown-item" href="{{ url_for('rank', rank='class')}}">Class</a>
+              <a class="dropdown-item" href="{{ url_for('rank', rank='order')}}">Order</a>
+              <a class="dropdown-item" href="{{ url_for('rank', rank='family')}}">Family</a>
+              <a class="dropdown-item" href="{{ url_for('rank', rank='genus')}}">Genus</a>
+              <a class="dropdown-item" href="{{ url_for('rank', rank='species')}}">Species</a>
+            </div>
+          </li>
+      		{% if 'username' not in session %}
+          <li class="nav-item"><a class="btn btn-primary" href="{{url_for('login')}}">Login</a></li>
+      		{% else %}
+          <li class="nav-item"><a class="btn btn-primary" href="{{url_for('logout')}}">Logout</a></li>
+      		{% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-primary text-center" role="alert">
+  {% if messages[1] %}
+  {{ messages[1] }}
+  {% else %}
+  {{ messages[0] }}
+  {% endif %}
+</div>
+  {% endif %}
+{% endwith %}
+
+{% block content %}
+  {% block app_content %}
+  {% endblock %}
+{% endblock %}
+
+<footer class="py-3">
+{% block footer %}
+    <div class="container">
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <h5 class="mb-3"><a href="{{ (url_for('index'))}}">Fungus Among Us</a></h5>
+      </div>
+    </div>
+{% endblock %}
+</footer>

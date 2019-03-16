@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 my-auto">
+          <h1 class="display-4">The Fungus Among Us</h1>
+          <p class="lead text-muted mb-4">Answer the call of the wild Mushroom.</p>
+      		{% if 'username' not in session %}
+          <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+          {% endif %}
+          <a class="btn btn-link" href="#read-more">Read more</a>
+        </div>
+        <div class="col-md-6"><img class="img-fluid mt-4 mt-md-0" src="{{ url_for('static', filename='img/logo-no-text.jpg')}}" alt=""/></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container text-center"><img class="mb-4" src="../static/placeholder/icons/unicorn.svg" alt="" id="read-more"/>
+      <p>Our mission is to create a world-wide repository of wild mushroom sightings. Using the humanity's decades of cumulative expertise we aim to gather additional information on the biodiversity of Fungus occuring on our natural habitat, planet Earth. This data collection will be used to generate supporting information for discovery of new mushroom species.</p>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container text-center">
+      <h2 class="mb-4">How it Works</h2>
+      <p class="lead mb-5">We’ve designed a simple, efficient process for our users to gather mushroon sighting information. Here’s how it works.</p>
+      <div class="row align-items-center text-md-left mb-5">
+        <div class="col-md-6 order-1 order-md-0"><img class="img-fluid" src="https://i.ytimg.com/vi/za-vIdak3bI/hqdefault.jpg" alt=""/></div>
+        <div class="col-md-6 mb-4 mb-md-0"><span class="display-3 mb-2">01</span>
+          <h3 class="mb-4">Make Observation</h3>
+          <p>We often encounter Fungus in our day-to-day travels that is easily overlooked and or ignored. A simple observation can be made by snapping a picture of the Fungus occuring in its natural habitat.</p>
+        </div>
+      </div>
+      <div class="row align-items-center text-md-right mb-5">
+        <div class="col-md-6 order-1 order-md-0 mb-4 mb-md-0"><span class="display-3 mb-2">02</span>
+          <h3 class="mb-4">Identify Fungus</h3>
+          <p>Using the information held within this website and available to us on the world wide web (we recommend <a href="https://www.wikipedia.org/">Wikipedia</a>) attempt to identify the mushroom observed in step 1.</p>
+        </div>
+        <div class="col-md-6 order-1 order-md-2"><img class="img-fluid" src="https://mycorrhizas.info/emfungi/fungus-types1.gif" alt=""/></div>
+      </div>
+      <div class="row align-items-center text-md-left mb-5">
+        <div class="col-md-6 order-1 order-md-0"><img class="img-fluid" src="{{ url_for('static', filename='img/create-sighting.jpg') }}" alt=""/></div>
+        <div class="col-md-6 mb-4 mb-md-0"><span class="display-3 mb-2">03</span>
+          <h3 class="mb-4">Create Sighting</h3>
+          <p>Catalog the mushroom sighting through our application and provide location, image url, and taxonomic information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

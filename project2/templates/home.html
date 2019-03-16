@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-3">
+  <div class="container-fluid text-center">
+    <div class="col">
+      <h1>Home</h1>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <div class="col">
+      <h3>Hi, {{ session.username }}!</h3>
+    </div>
+  </div>
+</section>
+
+<section class="py-3">
+  <div class="container-fluid">
+    <div class="col-lg-4 offset-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="container text-center">
+            <h2>Create Sighting</h2>
+            <br>
+            <a href="{{ url_for('new_sighting') }}" class="btn btn-outline-primary">Create Sighting</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-3">
+  <div class="container-fluid">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="container text-center">
+            <h2>Investigate Taxonomic Ranks</h2>
+            <br>
+            <a class="btn btn-outline-primary" href="{{ url_for('rank', rank='phylum' )}}">Phylum</a>
+            <a class="btn btn-outline-primary" href="{{ url_for('rank', rank='class')}}">Class</a>
+            <a class="btn btn-outline-primary" href="{{ url_for('rank', rank='order')}}">Order</a>
+            <a class="btn btn-outline-primary" href="{{ url_for('rank', rank='family')}}">Family</a>
+            <a class="btn btn-outline-primary" href="{{ url_for('rank', rank='genus')}}">Genus</a>
+            <a class="btn btn-outline-primary" href="{{ url_for('rank', rank='species')}}">Species</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container text-center">
+    <h2>Your Mushroom Sightings:</h2>
+    {% if sightings|length < 1 %}
+    <h3>You have no mushroom sightings!</h3>
+    <a href="{{ url_for('new_sighting') }}">Log a Mushroom Sighting</a>
+    {% endif %}
+  </div>
+  <div class="container text-center">
+  {% for sighting_row in sightings|batch(3) %}
+    <div class="row">
+    {% for sighting in sighting_row %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          {% if sighting.sighting_image %}
+          <img class="card-img-top" src="{{ sighting.sighting_image }}" alt=""/>
+          {% else %}
+          <img class="card-img-top" src="http://bootstrapshuffle.com/placeholder/pictures/bg_4-3.svg?primary=3B3737" alt=""/>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ sighting.name }}</h5>
+            <a href="{{ url_for('sightings', sighting_id=sighting.sighting_id) }}">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

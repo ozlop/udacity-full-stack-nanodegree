@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+
+{% block app_content %}
+<section class="py-3">
+  <div class="container text-center">
+    <h2>{{ tax_type|title }}: {{ tax.name }}</h2>
+  </div>
+  <br>
+  <div class="container">
+    <div class="col-lg-4 offset-lg-4">
+      {% if tax.image %}
+      <img class="card-img-top" src="{{ tax.image }}" alt=""/>
+      {% else %}
+      <img class="card-img-top" src="http://bootstrapshuffle.com/placeholder/pictures/bg_4-3.svg?primary=3B3737" alt=""/>
+      {% endif %}
+    </div>
+  </div>
+</section>
+<section class="py-3">
+  <div class="container">
+    <div class="col-lg-8 offset-lg-2">
+      <h3>Description</h3>
+      <p id="description-text">{{ tax.description }}</p>
+    </div>
+  </div>
+</section>
+
+{% if tax.children|length > 1 %}
+<section class="py-3">
+  <div class="container text-center">
+  {% for child_row in tax.children|batch(3) %}
+    <div class="row">
+    {% for child in child_row %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          {% if child.image %}
+          <img class="card-img-top" src="{{ child.image }}" alt=""/>
+          {% else %}
+          <img class="card-img-top" src="http://bootstrapshuffle.com/placeholder/pictures/bg_4-3.svg?primary=3B3737" alt=""/>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ child.name }}</h5>
+            <a href="{{ url_for('tax', tax_type=child.rank_type, tax_id=child.rank_id) }}">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
+<section class="py-5">
+  <div class="container text-center">
+    {% if tax_type == 'species' %}
+    <h2>{{ tax.name }} sightings:</h2>
+    <h3>There are no sightings!</h3>
+    {% if session['username'] %}
+    <a href="{{ url_for('new_sighting', species=tax.name) }}">Be The First</a>
+    {% endif %}
+    {% else %}
+    <h2>The {{ tax_type|title }} {{ tax.name }} has no children taxon.</h2>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
