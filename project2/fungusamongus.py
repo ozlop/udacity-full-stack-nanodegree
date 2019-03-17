@@ -532,6 +532,12 @@ def edit_sighting(sighting_id):
     user_id = login_session['user_id']
     # Retrieve Sighting object from data batabase using sighting_id argument
     sighting = session.query(Sighting).get(sighting_id)
+
+    # Verify user editing sighting is the creator
+    if user_id != sighting.created_by:
+        # Redirect user if not creator
+        return redirect(url_for('sightings'))
+
     # Retrieve all species
     all_species = (
         session.query(Species).order_by(Species.species_name.asc()).all()
@@ -585,9 +591,17 @@ def delete_sighting(sighting_id):
     Returns:
         Delete mushroom sighting page.
     '''
+    user_id = login_session['user_id']
+    # Retrieve Sighting object from data batabase using sighting_id argument
     sighting = session.query(Sighting).get(sighting_id)
 
+    # Verify user deleting sighting is the creator
+    if user_id != sighting.created_by:
+        # Redirect user if not creator
+        return redirect(url_for('sightings'))
+
     if request.method == 'POST':
+        # Delete sighting from database on form submittal
         session.delete(sighting)
         session.commit()
 
