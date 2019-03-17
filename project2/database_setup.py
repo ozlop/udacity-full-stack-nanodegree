@@ -25,10 +25,14 @@ class Phylum(Base):
     phylum_image = Column('PhylumImage', String)
     phylum_description = Column('PhylumDescription', String)
     created_by = Column('CreatedBy', Integer, ForeignKey('User.UserId'))
-    datetime_created = Column('DatetimeCreated', DateTime,
-                                 default=datetime.utcnow)
-    datetime_modified = Column('DatetimeModified', DateTime,
-                                  default=datetime.utcnow)
+    datetime_created = Column(
+        'DatetimeCreated',
+        DateTime,
+        default=datetime.utcnow)
+    datetime_modified = Column(
+        'DatetimeModified',
+        DateTime,
+        default=datetime.utcnow)
 
     classes = relationship('Class', secondary='PhylumToClass',
                            back_populates='phylums')
@@ -59,15 +63,23 @@ class Class(Base):
     class_image = Column('ClassImage', String)
     class_description = Column('ClassDescription', String)
     created_by = Column('CreatedBy', Integer, ForeignKey('User.UserId'))
-    datetime_created = Column('DatetimeCreated', DateTime,
-                                 default=datetime.utcnow)
-    datetime_modified = Column('DatetimeModified', DateTime,
-                                  default=datetime.utcnow)
+    datetime_created = Column(
+        'DatetimeCreated',
+        DateTime,
+        default=datetime.utcnow)
+    datetime_modified = Column(
+        'DatetimeModified',
+        DateTime,
+        default=datetime.utcnow)
 
-    phylums = relationship('Phylum', secondary='PhylumToClass',
-                           back_populates='classes')
-    orders = relationship('Order', secondary='ClassToOrder',
-                           back_populates='classes')
+    phylums = relationship(
+        'Phylum',
+        secondary='PhylumToClass',
+        back_populates='classes')
+    orders = relationship(
+        'Order',
+        secondary='ClassToOrder',
+        back_populates='classes')
 
     rank_id = synonym("class_id")
     rank_type = 'class'
@@ -96,10 +108,14 @@ class Order(Base):
     order_description = Column('OrderDescription', String)
     order_image = Column('OrderImage', String)
     created_by = Column('CreatedBy', Integer, ForeignKey('User.UserId'))
-    datetime_created = Column('DatetimeCreated', DateTime,
-                                 default=datetime.utcnow)
-    datetime_modified = Column('DatetimeModified', DateTime,
-                               default=datetime.utcnow)
+    datetime_created = Column(
+        'DatetimeCreated',
+        DateTime,
+        default=datetime.utcnow)
+    datetime_modified = Column(
+        'DatetimeModified',
+        DateTime,
+        default=datetime.utcnow)
 
     classes = relationship('Class', secondary='ClassToOrder',
                            back_populates='orders')
@@ -133,15 +149,23 @@ class Family(Base):
     family_description = Column('FamilyDescription', String)
     family_image = Column('FamilyImage', String)
     created_by = Column('CreatedBy', Integer, ForeignKey('User.UserId'))
-    datetime_created = Column('DatetimeCreated', DateTime,
-                                 default=datetime.utcnow)
-    datetime_modified = Column('DatetimeModified', DateTime,
-                                  default=datetime.utcnow)
+    datetime_created = Column(
+        'DatetimeCreated',
+        DateTime,
+        default=datetime.utcnow)
+    datetime_modified = Column(
+        'DatetimeModified',
+        DateTime,
+        default=datetime.utcnow)
 
-    orders = relationship('Order', secondary='OrderToFamily',
-                            back_populates='families')
-    genera = relationship('Genus', secondary='FamilyToGenus',
-                            back_populates='families')
+    orders = relationship(
+        'Order',
+        secondary='OrderToFamily',
+        back_populates='families')
+    genera = relationship(
+        'Genus',
+        secondary='FamilyToGenus',
+        back_populates='families')
 
     rank_id = synonym("family_id")
     rank_type = 'family'
@@ -170,15 +194,23 @@ class Genus(Base):
     genus_description = Column('GenusDescription', String)
     genus_image = Column('GenusImage', String)
     created_by = Column('CreatedBy', Integer, ForeignKey('User.UserId'))
-    datetime_created = Column('DatetimeCreated', DateTime,
-                                 default=datetime.utcnow)
-    datetime_modified = Column('DatetimeModified', DateTime,
-                                  default=datetime.utcnow)
+    datetime_created = Column(
+        'DatetimeCreated',
+        DateTime,
+        default=datetime.utcnow)
+    datetime_modified = Column(
+        'DatetimeModified',
+        DateTime,
+        default=datetime.utcnow)
 
-    families = relationship('Family', secondary='FamilyToGenus',
-                            back_populates='genera')
-    species = relationship('Species', secondary='GenusToSpecies',
-                           back_populates='genera')
+    families = relationship(
+        'Family',
+        secondary='FamilyToGenus',
+        back_populates='genera')
+    species = relationship(
+        'Species',
+        secondary='GenusToSpecies',
+        back_populates='genera')
 
     rank_id = synonym("genus_id")
     rank_type = 'genus'
@@ -207,15 +239,23 @@ class Species(Base):
     species_description = Column('SpeciesDescription', String)
     species_image = Column('GenusImage', String)
     created_by = Column('CreatedBy', Integer, ForeignKey('User.UserId'))
-    datetime_created = Column('DatetimeCreated', DateTime,
-                                 default=datetime.utcnow)
-    datetime_modified = Column('DatetimeModified', DateTime,
-                                  default=datetime.utcnow)
+    datetime_created = Column(
+        'DatetimeCreated',
+        DateTime,
+        default=datetime.utcnow)
+    datetime_modified = Column(
+        'DatetimeModified',
+        DateTime,
+        default=datetime.utcnow)
 
-    genera = relationship('Genus', secondary='GenusToSpecies',
-                           back_populates='species')
-    sightings = relationship('Sighting', secondary='SpeciesToSighting',
-                             back_populates='sighting_species')
+    genera = relationship(
+        'Genus',
+        secondary='GenusToSpecies',
+        back_populates='species')
+    sightings = relationship(
+        'Sighting',
+        secondary='SpeciesToSighting',
+        back_populates='sighting_species')
 
     rank_id = synonym("species_id")
     rank_type = 'species'
@@ -280,15 +320,15 @@ class Sighting(Base):
     def serialize(self):
         return {
             'sightingId': self.sighting_id,
-            'sightingPhylumId': self.phylum_id,
-            'sightingClassId': self.class_id,
-            'sightingOrderId': self.order_id,
-            'sightingFamilyId': self.family_id,
-            'sightingGenusId': self.genus_id,
-            'sightingSpeciesId': self.species_id,
-            'sightingLocation': self.location,
-            'sightingComment': self.comment,
-            'sightingImage': self.image,
+            'sightingPhylumName': self.sighting_phylum.name,
+            'sightingClassName': self.sighting_class.name,
+            'sightingOrderName': self.sighting_order.name,
+            'sightingFamilyName': self.sighting_family.name,
+            'sightingGenusName': self.sighting_genus.name,
+            'sightingSpeciesName': self.sighting_species.name,
+            'sightingLocation': self.sighting_location,
+            'sightingComment': self.sighting_comment,
+            'sightingImage': self.sighting_image,
             'createdBy': self.created_by,
             'datetimeCreated': self.datetime_created,
             'modifiedBy': self.created_by,
@@ -369,8 +409,11 @@ class GenusSpecies(Base):
 
 class SpeciesSighting(Base):
     __tablename__ = 'SpeciesToSighting'
-    sighting_id = Column('SightingId', Integer, ForeignKey('Sighting.SightingId'),
-                      primary_key=True)
+    sighting_id = Column(
+        'SightingId',
+        Integer,
+        ForeignKey('Sighting.SightingId'),
+        primary_key=True)
     species_id = Column('SpeciesId', Integer, ForeignKey('Species.SpeciesId'))
     created_by = Column('CreatedBy', Integer, ForeignKey('User.UserId'))
     datetime_created = Column('DatetimeCreated', DateTime,
