@@ -13,7 +13,7 @@
 			<dl>
 				<dt>Species:</dt>
 					<dd>
-			      <select name="species">
+			      <select name="species" required>
 			        <option value= "" SELECTED></option>"
 			        {% for species in all_species %}
 			        <option value= "{{species.species_id}}" SELECTED>{{ species.species_name }}</option>"
@@ -22,15 +22,15 @@
 			    </dd>
 				<dt>Location:</dt>
 					<dd>
-						<input type="text" name="location" size="52">
+						<input type="text" name="location" size="52" required>
 			    </dd>
 				<dt>Comment:</dt>
 					<dd>
-						<textarea rows="4" cols="50" name="comment" form='sighting-form'>Enter text here...</textarea>
+						<textarea rows="4" cols="50" name="comment" form='sighting-form' required>Enter text here...</textarea>
 					</dd>
 					<dt>Sighting Image URL:</dt>
 						<dd>
-							<input type="text" name="image" size="52">
+							<input type="text" name="image" size="52" required>
 				    </dd>
 					<dd>
 						<button type="submit" class="btn btn-primary" id="submit" type="submit">
@@ -52,7 +52,7 @@
 			<dl>
 				<dt>Species:</dt>
 					<dd>
-			      <select name="species">
+			      <select name="species" required>
 			        {% for species in all_species %}
 			        <option value= "{{species.species_id}}" SELECTED>{{ species.species_name }}</option>"
 			        {% endfor %}
@@ -61,15 +61,15 @@
 			    </dd>
 				<dt>Location:</dt>
 					<dd>
-						<input type="text" name="location" size="52" value={{ sighting.sighting_location }}>
+						<input type="text" name="location" size="52" value="{{ sighting.sighting_location }}" required>
 			    </dd>
 				<dt>Comment:</dt>
 					<dd>
-						<textarea rows="4" cols="50" name="comment" form='sighting-form'>{{ sighting.sighting_comment}}</textarea>
+						<textarea rows="4" cols="50" name="comment" form='sighting-form' required>{{ sighting.sighting_comment}}</textarea>
 					</dd>
 					<dt>Sighting Image URL:</dt>
 						<dd>
-							<input type="text" name="image" size="52" value="{{ sighting.sighting_image }}">
+							<input type="text" name="image" size="52" value="{{ sighting.sighting_image }}" required>
 				    </dd>
 					<dd>
 						<button type="submit" class="btn btn-primary" id="submit" type="submit">
